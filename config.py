@@ -190,7 +190,7 @@ def paths_for(ds):
     """데이터셋의 파일 경로 묶음을 돌려줍니다."""
     d = BASE_DIR / ds["dir"]
     p = ds["prefix"]
-    return {
+    paths = {
         "yolo_video": d / (p + "_yolo.mp4"),
         "bev_video": d / (p + "_bev_velocity.mp4"),
         "result_csv": d / (p + "_result.csv"),
@@ -201,10 +201,17 @@ def paths_for(ds):
         "web_yolo": WEB_MEDIA_DIR / (ds["id"] + "_yolo.mp4"),
         "web_bev": WEB_MEDIA_DIR / (ds["id"] + "_bev.mp4"),
         "web_twin": WEB_MEDIA_DIR / (ds["id"] + "_twin.mp4"),
+        "web_twin_spot": WEB_MEDIA_DIR / (ds["id"] + "_twin_spot.mp4"),
         "twin_video": d / (p + "_twin.mp4"),
+        "twin_spot_video": d / (p + "_twin_spot.mp4"),
         "stopline_csv": d / (p + "_stopline_summary.csv"),
         "tailgate_csv": d / (p + "_tailgate_summary.csv"),
     }
+    if ds["id"] == "olympicpark_south":
+        twin_dir = BASE_DIR / "올림픽공원남단_정지선_twin"
+        paths["twin_video"] = twin_dir / (p + "_twin_stopline_box.mp4")
+        paths["twin_spot_video"] = twin_dir / (p + "_twin_stopline.mp4")
+    return paths
 
 
 def playable(ds, kind):
@@ -216,7 +223,8 @@ def playable(ds, kind):
     p = paths_for(ds)
     key = {"yolo": ("web_yolo", "yolo_video"),
            "bev": ("web_bev", "bev_video"),
-           "twin": ("web_twin", "twin_video")}.get(kind)
+           "twin": ("web_twin", "twin_video"),
+           "twin_spot": ("web_twin_spot", "twin_spot_video")}.get(kind)
     if key is None:
         return p["yolo_video"]
     web, raw = p[key[0]], p[key[1]]

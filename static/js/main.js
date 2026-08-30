@@ -135,6 +135,9 @@ async function openDetail(id) {
   bev.disabled = !d.has_bev;
   const twin = $$('.seg-btn').find(b => b.dataset.view === 'twin');
   twin.disabled = !d.has_twin;
+  const twinSpot = $$('.seg-btn').find(b => b.dataset.view === 'twin_spot');
+  twinSpot.hidden = !d.has_twin_spot;
+  twinSpot.disabled = !d.has_twin_spot;
 
   state.events = d.events || { stopline: [], tailgate: [] };
   state.fired.clear();
@@ -168,7 +171,7 @@ function setView(view, atTime) {
   const keep = (atTime !== undefined) ? atTime : (p.currentTime || 0);
   const wasPlaying = !p.paused && !p.ended;
 
-  p.classList.toggle('bev', view === 'bev' || view === 'twin');
+  p.classList.toggle('bev', view === 'bev' || view === 'twin' || view === 'twin_spot');
   status('');
   p.src = api.media(state.data.id, view);
 

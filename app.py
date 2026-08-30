@@ -324,6 +324,7 @@ def api_videos():
             "duration": data["duration"] if data else 0,
             "summary": data["summary"] if data else None,
             "has_twin": C.playable(ds, "twin").exists(),
+            "has_twin_spot": C.playable(ds, "twin_spot").exists(),
             "has_predict": (C.CACHE_DIR / ("predict-%s.json" % ds["id"])).exists(),
         })
     return jsonify({
@@ -354,6 +355,7 @@ def api_video(ds_id):
     payload["web_ready"] = p["web_yolo"].exists()
     payload["place"] = C.load_places().get(ds.get("place_id"))
     payload["has_twin"] = C.playable(ds, "twin").exists()
+    payload["has_twin_spot"] = C.playable(ds, "twin_spot").exists()
     payload["events"] = read_events(ds)
     pred = read_predict(ds_id)
     payload["predict"] = {
@@ -396,6 +398,14 @@ def media_twin(ds_id):
     if not ds:
         abort(404)
     return send_video(C.playable(ds, "twin"))
+
+
+@app.route("/media/<ds_id>/twin_spot")
+def media_twin_spot(ds_id):
+    ds = C.DATASET_BY_ID.get(ds_id)
+    if not ds:
+        abort(404)
+    return send_video(C.playable(ds, "twin_spot"))
 
 
 @app.route("/api/predict/<ds_id>")

@@ -72,11 +72,13 @@ def build_data():
         events = read_events(ds)
         predict = C.CACHE_DIR / ("predict-%s.json" % ds["id"])
         has_twin = C.playable(ds, "twin").exists()
+        has_twin_spot = C.playable(ds, "twin_spot").exists()
 
         videos.append({
             "id": ds["id"],
             "place_id": ds.get("place_id"),
             "has_twin": has_twin,
+            "has_twin_spot": has_twin_spot,
             "has_predict": predict.exists(),
             "name": ds["name"],
             "place": ds["place"],
@@ -92,6 +94,7 @@ def build_data():
         d["desc"] = ds["desc"]
         d["has_bev"] = True
         d["has_twin"] = has_twin
+        d["has_twin_spot"] = has_twin_spot
         d["events"] = events
         d["predict"] = {
             "available": predict.exists(),
@@ -265,7 +268,7 @@ def encode(src, dst, kind, q):
     한 파일을 인코딩합니다.
     결과가 깃허브 제한에 걸릴 만큼 크면 압축을 한 단계씩 올려 다시 시도합니다.
     """
-    conf = q[kind]
+    conf = q["twin" if kind == "twin_spot" else kind]
     crf = conf["crf"]
 
     # 영상이 길수록 같은 화질이어도 용량이 커집니다. 20분을 넘으면 한 단계 더 압축.
@@ -283,7 +286,7 @@ def encode(src, dst, kind, q):
     for attempt in range(3):
         if kind == "yolo":
             vf = "scale='min(%d,iw)':-2" % conf["w"]
-        elif kind == "twin":
+        elif kind in ("twin", "twin_spot"):
             vf = ("scale=w='min(%d,iw)':h='min(%d,ih)'"
                   ":force_original_aspect_ratio=decrease:force_divisible_by=2"
                   % (conf["h"], conf["h"]))
@@ -324,7 +327,7 @@ def build_media(quality, force):
     made = []
 
     for ds in C.DATASETS:
-        for kind in ("yolo", "bev", "twin"):
+        for kind in ("yolo", "bev", "twin", "twin_spot"):
             src = C.playable(ds, kind)
             if not src.exists():
                 continue
