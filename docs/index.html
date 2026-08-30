@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>교통 관제탑</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<meta name="theme-color" content="#0B1B2B">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="관제탑">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="apple-touch-icon" href="./static/icons/apple-touch-icon.png">
+<link rel="icon" href="./static/icons/icon-192.png">
+<link rel="stylesheet" href="./static/css/style.css?v=1788072977">
+</head>
+<body>
+
+<svg class="sprite" aria-hidden="true">
+  <symbol id="i-tower" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="8" y="2.5" width="8" height="14" rx="4"/><path d="M12 16.5v5M8.5 21.5h7"/>
+    <circle cx="12" cy="6.5" r="1.3"/><circle cx="12" cy="9.8" r="1.3"/><circle cx="12" cy="13.1" r="1.3"/>
+  </symbol>
+  <symbol id="i-back" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 4 12l7 7M20 5l-7 7 7 7"/></symbol>
+  <symbol id="i-fwd" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M13 5l7 7-7 7M4 5l7 7-7 7"/></symbol>
+  <symbol id="i-cam" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="6" width="14" height="12" rx="2.5"/><path d="M16.5 10.5 21.5 8v8l-5-2.5z"/></symbol>
+  <symbol id="i-bev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5 12 4l9 4.5-9 4.5z"/><path d="M3 13l9 4.5L21 13"/><path d="M3 17l9 4.5L21 17"/></symbol>
+  <symbol id="i-signal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2.8" width="10" height="18.4" rx="5"/><circle cx="12" cy="7.5" r="1.4"/><circle cx="12" cy="12" r="1.4"/><circle cx="12" cy="16.5" r="1.4"/></symbol>
+  <symbol id="i-car" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5v2a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1v-2M22.5 16.5v2a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1v-2"/><path d="M2 16.5v-4l2.2-5A2 2 0 0 1 6.1 6h11.8a2 2 0 0 1 1.9 1.5l2.2 5v4z"/><path d="M5.5 13h13"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5 22 20H2z"/><path d="M12 9.5v5M12 17.3v.2"/></symbol>
+  <symbol id="i-list" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6h13M8 12h13M8 18h13M3.5 6h.2M3.5 12h.2M3.5 18h.2"/></symbol>
+  <symbol id="i-arrow-left" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></symbol>
+  <symbol id="i-arrow-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-twin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2.5"/><path d="M8 3v18M16 3v18M3 9h18M3 15h18"/></symbol>
+  <symbol id="i-route" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="19" r="2.5"/><circle cx="18" cy="5" r="2.5"/><path d="M8.5 19h5a4 4 0 0 0 0-8h-3a4 4 0 0 1 0-8h5" stroke-dasharray="3 2.5"/></symbol>
+  <symbol id="i-siren" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 19v-6a6 6 0 0 1 12 0v6z"/><path d="M4 19h16M12 3v2M4.5 7 6 8M19.5 7 18 8"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21.5s7-6.2 7-11.4A7 7 0 0 0 5 10.1c0 5.2 7 11.4 7 11.4z"/><circle cx="12" cy="10" r="2.6"/></symbol>
+  <symbol id="i-crosshair" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="2.2"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></symbol>
+  <symbol id="i-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+  <symbol id="i-type" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6.5V5h10v1.5M9 5v14M6.5 19h5"/><path d="M14.5 12.5V11.5h6v1M17.5 11.5V19M15.8 19h3.4"/></symbol>
+</svg>
+
+<header class="rail">
+  <div class="rail-inner">
+    <a class="brand" href="./">
+      <span class="brand-mark"><svg class="brand-ico"><use href="#i-tower"/></svg></span>
+      <span class="brand-text">
+        <strong>교통 관제탑</strong>
+        <small>Traffic Control Tower</small>
+      </span>
+    </a>
+    <div class="rail-tools">
+      <button id="btnHome" class="rail-btn" type="button" hidden>
+        <svg class="ico"><use href="#i-arrow-left"/></svg><span>목록</span>
+      </button>
+      <button id="btnField" class="rail-btn" type="button" aria-pressed="false">
+        <svg class="ico"><use href="#i-pin"/></svg><span id="btnFieldLabel">현장 모드</span>
+      </button>
+      <button id="btnFont" class="rail-btn" type="button" aria-pressed="false">
+        <svg class="ico"><use href="#i-type"/></svg><span id="btnFontLabel">글씨 크게</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section id="viewList" class="screen">
+    <div class="hero">
+      <span class="tagline">관제 지점</span>
+      <h1 class="hero-title">확인할 지점을<br>선택하세요</h1>
+      <p class="hero-sub">CCTV 영상의 차량 인식 결과와 속도·신호 데이터를 지점별로 제공합니다.</p>
+    </div>
+
+    <div id="fieldBar" class="field-bar" hidden>
+      <span class="fb-pulse"></span>
+      <div class="fb-text">
+        <strong id="fbTitle">위치를 확인하는 중입니다</strong>
+        <span id="fbDetail">잠시만 기다려 주세요</span>
+      </div>
+      <button id="fbSettings" class="fb-btn" type="button">위치 설정</button>
+      <button id="fbStop" class="fb-btn ghost" type="button" aria-label="현장 모드 끄기">
+        <svg class="ico"><use href="#i-close"/></svg>
+      </button>
+    </div>
+
+    <div id="codecHint" class="notice is-warn" hidden>
+      <svg class="ico"><use href="#i-alert"/></svg>
+      <div>
+        <strong>영상 변환이 필요합니다</strong>
+        <p>원본 영상은 <code>mp4v</code> 코덱이라 브라우저에서 재생되지 않습니다.
+           터미널에서 <code>python transcode.py</code> 를 실행해 주세요.</p>
+      </div>
+    </div>
+
+    <div id="setupHint" class="notice" hidden>
+      <svg class="ico"><use href="#i-alert"/></svg>
+      <div>
+        <strong>준비가 필요한 지점이 있습니다</strong>
+        <p>터미널에서 <code>python precompute.py</code> 를 한 번 실행하면 모두 준비됩니다.</p>
+      </div>
+    </div>
+
+    <section id="placePanel" class="panel place-panel" hidden>
+      <h2 class="panel-title"><svg class="ico"><use href="#i-crosshair"/></svg>현장 위치 설정</h2>
+      <p class="place-lead">
+        각 교차로의 좌표입니다. 현장에 서서 <b>이 자리로 지정</b>을 누르면
+        휴대폰의 현재 위치로 정확하게 맞춰집니다. 설정한 값은 서버에 저장됩니다.
+      </p>
+      <div id="placeList" class="place-list"></div>
+      <div class="place-foot">
+        <label for="radiusInput">자동 전환 반경</label>
+        <input id="radiusInput" type="number" min="20" max="2000" step="10" value="150">
+        <span class="unit">m</span>
+        <span class="place-hint">이 거리 안으로 들어오면 해당 지점 화면이 자동으로 열립니다</span>
+      </div>
+    </section>
+
+    <div id="cardGrid" class="card-grid">
+      <div class="loading-box">목록을 불러오는 중입니다</div>
+    </div>
+  </section>
+
+  <section id="viewDetail" class="screen" hidden>
+
+    <div id="arrivedBar" class="arrived-bar" hidden>
+      <svg class="ico"><use href="#i-pin"/></svg>
+      <span id="arrivedText">현장 도착 - 자동으로 열었습니다</span>
+      <span id="arrivedSwitch" class="arrived-switch"></span>
+    </div>
+
+    <div class="detail-head">
+      <div>
+        <span class="tagline" id="dtPlace">—</span>
+        <h1 class="detail-title" id="dtTitle">—</h1>
+        <p class="detail-meta" id="dtSub">—</p>
+      </div>
+      <div id="dtBadge" class="status-pill is-safe">
+        <span class="pill-dot"></span>
+        <span class="pill-label">현재 상태</span>
+        <span class="pill-value">안전</span>
+      </div>
+    </div>
+
+    <div class="detail-grid">
+
+      <div class="stage">
+        <div class="seg" role="tablist" aria-label="화면 선택">
+          <button class="seg-btn is-on" data-view="yolo" role="tab" aria-selected="true">
+            <svg class="ico"><use href="#i-cam"/></svg>
+            <span class="seg-main">차량 인식</span>
+            <span class="seg-sub">카메라 시점</span>
+          </button>
+          <button class="seg-btn" data-view="bev" role="tab" aria-selected="false">
+            <svg class="ico"><use href="#i-bev"/></svg>
+            <span class="seg-main">평면 변환</span>
+            <span class="seg-sub">속도 측정 시점</span>
+          </button>
+          <button class="seg-btn" data-view="twin" role="tab" aria-selected="false">
+            <svg class="ico"><use href="#i-twin"/></svg>
+            <span class="seg-main">디지털 트윈</span>
+            <span class="seg-sub">도로 도면 위 재현</span>
+          </button>
+        </div>
+
+        <div class="video-box">
+          <video id="player" controls playsinline preload="auto"></video>
+          <canvas id="overlay" class="overlay"></canvas>
+        </div>
+
+        <p id="videoStatus" class="video-status" hidden></p>
+        <div id="eventAlert" class="event-alert" hidden>
+          <svg class="ico"><use href="#i-siren"/></svg>
+          <div class="ea-body">
+            <strong id="eaTitle">위반</strong>
+            <span id="eaDetail"></span>
+          </div>
+        </div>
+
+        <div class="deck">
+          <div class="deck-row">
+            <button id="btnBack" class="ctl" type="button">
+              <svg class="ico"><use href="#i-back"/></svg><span>10초 뒤로</span>
+            </button>
+            <button id="btnFwd" class="ctl" type="button">
+              <svg class="ico"><use href="#i-fwd"/></svg><span>10초 앞으로</span>
+            </button>
+            <button id="btnPredict" class="ctl" type="button" aria-pressed="false" disabled>
+              <svg class="ico"><use href="#i-route"/></svg><span id="btnPredictLabel">경로 예측</span>
+            </button>
+            <div class="timecode"><b id="curTime">00:00</b><i>/</i><span id="totTime">00:00</span></div>
+          </div>
+
+          <div class="strip-wrap">
+            <div class="strip-head">
+              <span class="strip-title">시간대별 위험도</span>
+              <span class="legend">
+                <i><b class="dot safe"></b>안전</i>
+                <i><b class="dot caution"></b>주의</i>
+                <i><b class="dot danger"></b>위험</i>
+              </span>
+            </div>
+            <canvas id="riskStrip" class="risk-strip" height="14"></canvas>
+            <p class="strip-hint">띠를 누르면 해당 시각으로 이동합니다</p>
+          </div>
+        </div>
+      </div>
+
+      <aside class="side-col">
+
+        <section class="panel">
+          <h2 class="panel-title"><svg class="ico"><use href="#i-signal"/></svg>현재 신호</h2>
+          <div id="signalList" class="signal-list"></div>
+          <p id="signalNote" class="panel-note"></p>
+        </section>
+
+        <section class="panel">
+          <h2 class="panel-title"><svg class="ico"><use href="#i-car"/></svg>통행 현황</h2>
+          <div class="metric-row">
+            <div class="metric">
+              <span class="metric-num" id="stCount">0</span>
+              <span class="metric-cap">통행 차량</span>
+            </div>
+            <div class="metric">
+              <span class="metric-num" id="stAvg">0</span>
+              <span class="metric-cap">평균 <i>km/h</i></span>
+            </div>
+            <div class="metric">
+              <span class="metric-num" id="stMax">0</span>
+              <span class="metric-cap">최고 <i>km/h</i></span>
+            </div>
+          </div>
+          <div id="liveList" class="live-list"></div>
+        </section>
+
+        <section class="panel" id="eventPanel">
+          <h2 class="panel-title"><svg class="ico"><use href="#i-siren"/></svg>위반 감지</h2>
+          <div class="ev-tabs">
+            <button class="ev-tab is-on" data-ev="stopline">정지선 <b id="cntStop">0</b></button>
+            <button class="ev-tab" data-ev="tailgate">꼬리물기 <b id="cntTail">0</b></button>
+          </div>
+          <div id="eventList" class="event-list"></div>
+          <p class="panel-note" id="eventNote">—</p>
+        </section>
+
+        <section class="panel">
+          <h2 class="panel-title"><svg class="ico"><use href="#i-alert"/></svg>위험도 판정</h2>
+          <div id="riskBig" class="risk-state is-safe">
+            <span class="rs-dot"></span>
+            <span class="rs-word">안전</span>
+            <span class="rs-desc">제한속도 내에서 통행 중입니다</span>
+          </div>
+          <div class="risk-bars">
+            <div class="rb"><span class="rb-lab"><b class="dot safe"></b>안전</span>
+              <span class="rb-track"><i id="barSafe" class="rb-fill safe"></i></span><b id="numSafe">0</b></div>
+            <div class="rb"><span class="rb-lab"><b class="dot caution"></b>주의</span>
+              <span class="rb-track"><i id="barCaution" class="rb-fill caution"></i></span><b id="numCaution">0</b></div>
+            <div class="rb"><span class="rb-lab"><b class="dot danger"></b>위험</span>
+              <span class="rb-track"><i id="barDanger" class="rb-fill danger"></i></span><b id="numDanger">0</b></div>
+          </div>
+          <p class="panel-note" id="riskRule">—</p>
+        </section>
+
+      </aside>
+    </div>
+
+    <section class="panel panel-table">
+      <h2 class="panel-title"><svg class="ico"><use href="#i-list"/></svg>전체 분석 결과</h2>
+
+      <div class="sum-grid">
+        <div class="sum-card"><span class="sum-cap">인식 차량</span><span class="sum-num" id="sumTotal">0</span></div>
+        <div class="sum-card"><span class="sum-cap">판정 차량</span><span class="sum-num" id="sumJudged">0</span></div>
+        <div class="sum-card"><span class="sum-cap">평균 속도 <i>km/h</i></span><span class="sum-num" id="sumAvg">0</span></div>
+        <div class="sum-card is-caution"><span class="sum-cap">주의</span><span class="sum-num" id="sumCaution">0</span></div>
+        <div class="sum-card is-danger"><span class="sum-cap">위험</span><span class="sum-num" id="sumDanger">0</span></div>
+      </div>
+
+      <div class="filter-row">
+        <div class="chips">
+          <button class="chip is-on" data-filter="all">전체</button>
+          <button class="chip" data-filter="danger">위험</button>
+          <button class="chip" data-filter="caution">주의</button>
+          <button class="chip" data-filter="safe">안전</button>
+          <button class="chip" data-filter="unknown">측정 부족</button>
+        </div>
+        <span id="tableCount" class="table-count"></span>
+      </div>
+
+      <div class="table-scroll">
+        <table class="vtable">
+          <thead>
+            <tr>
+              <th>차량</th>
+              <th class="num">판정 속도<small>지속 속도</small></th>
+              <th class="num">순간 최고<small>단일 최댓값</small></th>
+              <th class="num">관측 시간</th>
+              <th>출현 구간</th>
+              <th>판정</th>
+              <th class="th-act"></th>
+            </tr>
+          </thead>
+          <tbody id="vtBody"></tbody>
+        </table>
+      </div>
+      <div class="table-more">
+        <button id="btnMore" class="ctl" type="button">더 보기</button>
+      </div>
+    </section>
+
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="foot-inner">
+    <span>인식 모델 <b id="footWeights">cctv_car_bus_truck/weights/best.pt</b></span>
+    <span>속도는 BEV 평면 좌표 기준</span>
+  </div>
+</footer>
+
+<script>window.STATIC_MODE=true;</script>
+<script src="./static/js/main.js?v=1788072977"></script>
+</body>
+</html>

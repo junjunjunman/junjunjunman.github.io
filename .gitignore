@@ -1,0 +1,12 @@
+# 원본/중간 산출물은 올리지 않습니다. (용량이 매우 큽니다)
+web_media/
+cache/
+certs/
+places.json
+__pycache__/
+*.pyc
+.DS_Store
+
+# 배포본 docs/ 는 올려야 하므로 제외하지 않습니다.
+# docs/media 안의 임시 파일만 제외
+docs/**/*.part.mp4

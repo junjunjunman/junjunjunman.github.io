@@ -1,0 +1,38 @@
+{
+  "name": "교통 관제탑",
+  "short_name": "관제탑",
+  "description": "CCTV 차량 인식·속도·신호 통합 관제. 현장에 도착하면 해당 지점 영상이 자동으로 열립니다.",
+  "lang": "ko",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#0B1B2B",
+  "theme_color": "#0B1B2B",
+  "icons": [
+    {
+      "src": "./static/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./static/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./static/icons/maskable-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "./static/icons/maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
