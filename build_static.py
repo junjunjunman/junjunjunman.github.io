@@ -72,7 +72,8 @@ def build_data():
         events = read_events(ds)
         predict = C.CACHE_DIR / ("predict-%s.json" % ds["id"])
         has_twin = C.playable(ds, "twin").exists()
-        has_twin_spot = C.playable(ds, "twin_spot").exists()
+        has_twin_spot = (ds["id"] == "olympicpark_south"
+                         and C.playable(ds, "twin_spot").exists())
 
         videos.append({
             "id": ds["id"],
@@ -327,7 +328,10 @@ def build_media(quality, force):
     made = []
 
     for ds in C.DATASETS:
-        for kind in ("yolo", "bev", "twin", "twin_spot"):
+        kinds = ["yolo", "bev", "twin"]
+        if ds["id"] == "olympicpark_south":
+            kinds.append("twin_spot")
+        for kind in kinds:
             src = C.playable(ds, kind)
             if not src.exists():
                 continue

@@ -211,6 +211,10 @@ def paths_for(ds):
         twin_dir = BASE_DIR / "올림픽공원남단_정지선_twin"
         paths["twin_video"] = twin_dir / (p + "_twin_stopline_box.mp4")
         paths["twin_spot_video"] = twin_dir / (p + "_twin_stopline.mp4")
+    elif ds["id"].startswith("walkerhill"):
+        # 워커힐은 박스형 대신 위치 점 영상을 기본 디지털 트윈으로 사용합니다.
+        paths["web_twin"] = WEB_MEDIA_DIR / (ds["id"] + "_twin_spot.mp4")
+        paths["twin_video"] = d / (p + "_twin_spot.mp4")
     return paths
 
 
