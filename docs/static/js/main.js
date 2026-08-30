@@ -30,6 +30,7 @@ const state = {
    window.STATIC_MODE 는 정적 빌드에서 index.html 에 주입됩니다.
    ---------------------------------------------------------- */
 const STATIC = typeof window.STATIC_MODE !== 'undefined' && window.STATIC_MODE;
+const MEDIA_VERSION = window.MEDIA_VERSION || 'local';
 
 /* 정적 모드에서는 상대 경로를 씁니다.
    그래야 user.github.io/ 든 user.github.io/저장소/ 든 그대로 동작합니다. */
@@ -37,7 +38,9 @@ const api = {
   videos: () => STATIC ? 'data/videos.json' : '/api/videos',
   video:  (id) => STATIC ? `data/video-${id}.json` : `/api/video/${id}`,
   places: () => STATIC ? 'data/places.json' : '/api/places',
-  media:  (id, kind) => STATIC ? `media/${id}_${kind}.mp4` : `/media/${id}/${kind}`,
+  media:  (id, kind) => STATIC
+    ? `media/${id}_${kind}.mp4?v=${encodeURIComponent(MEDIA_VERSION)}`
+    : `/media/${id}/${kind}`,
   predict:(id) => STATIC ? `data/predict-${id}.json` : `/api/predict/${id}`
 };
 

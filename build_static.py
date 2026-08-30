@@ -218,7 +218,7 @@ def build_shell():
     html = html.replace('href="/', 'href="./')
     html = html.replace('src="/', 'src="./')
     html = html.replace('<script src="./static/js/main.js',
-                        '<script>window.STATIC_MODE=true;</script>\n'
+                        '<script>window.STATIC_MODE=true;window.MEDIA_VERSION="%s";</script>\n' % stamp +
                         '<script src="./static/js/main.js')
     html = html.replace('<a href="./test">영상 재생 테스트</a> · ', "")
     (OUT / "index.html").write_text(html, encoding="utf-8")
