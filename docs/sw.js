@@ -1,7 +1,7 @@
 /* 교통 관제탑 - 서비스 워커
    화면 파일만 캐시합니다. 영상과 API 는 항상 서버에서 새로 받습니다. */
 
-const CACHE = 'gwanje-static-1788119870';
+const CACHE = 'gwanje-static-1788120499';
 const SHELL = [
   './',
   './index.html',
