@@ -16,9 +16,9 @@ PLACES_FILE = APP_DIR / "places.json"   # 현장에서 고친 좌표를 저장�
 WEIGHTS_PATH = BASE_DIR / "cctv_car_bus_truck" / "weights" / "best.pt"
 
 # 속도 위험도 판정 기준
-# 안전: 제한속도 미만 / 주의: 제한속도 ~ 제한속도x1.3 / 위험: 제한속도x1.3 이상
+# 안전: 제한속도 미만 / 주의: 제한속도 이상 / 위험: 제한속도의 2배 이상
 RISK_CAUTION_RATIO = 1.0
-RISK_DANGER_RATIO = 1.3
+RISK_DANGER_RATIO = 2.0
 
 # 측정 신뢰도 보정
 # CCTV + BEV 좌표 계산은 추적 ID 가 바뀌거나 화면 먼 쪽에서 좌표가 튈 때
